@@ -1,25 +1,55 @@
-import logo from './logo.svg';
+import React from 'react';
+import { render } from 'react-dom';
 import './App.css';
+import spacetime from 'spacetime';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+let s = spacetime.now();
+
+const Timezone = (props) => {
+  const d = s.goto(props.zone);
+  const rs = props.name + ' ' + d.time() + ' GMT ' + d.offset() / 60;
+  return rs;
+};
+
+const App = () => (
+  <div className='App'>
+    <header className='App-header'>
+      <p>
+        <Timezone zone='Australia/Sydney' name='Newcastle' />
+      </p>
+      <p>
+        <Timezone zone='Asia/Hong_Kong' name='Shenzen' />
+      </p>
+      <p>
+        <Timezone zone='Asia/Kolkata' name='Gurgaon' />
+      </p>
+      <p>
+        <Timezone zone='Europe/London' name='London' />
+      </p>
+      <p>
+        <Timezone zone='America/Chicago' name='Austin' />
+      </p>
+      <p>
+        <Timezone zone='America/Denver' name='Denver' />
+      </p>
+      <p>
+        <Timezone zone='America/Los_Angeles' name='Seattle' />
+      </p>
+      <p>
+        <button onClick={() => (s = s.add(1, 'hours'))}>Increment Hours</button>
+      </p>
+      <p>
+        <button onClick={() => (s = s.subtract(1, 'hours'))}>
+          Decrement Hours
+        </button>
+      </p>
+      <p>
+        <button onClick={() => (s = spacetime.now())}>Reset</button>
+      </p>
+    </header>
+  </div>
+);
+
+render(<App />, document.getElementById('root'));
 
 export default App;
