@@ -8,7 +8,13 @@ let s = spacetime.now();
 
 const Timezone = (props) => {
   const d = s.goto(props.zone);
-  const rs = props.name + ' ' + d.time() + ' GMT ' + d.offset() / 60;
+  const rs =
+    props.name +
+    ': ' +
+    d.time() +
+    ' GMT ' +
+    (d.offset() > 0 ? '+' : '') +
+    d.offset() / 60;
   return rs;
 };
 
@@ -43,16 +49,6 @@ const App = () => (
         <p>
           <Timezone zone='America/Los_Angeles' name='Seattle' />
         </p>
-        {/* <p>
-          <button onClick={() => (s = s.add(1, 'hours'))}>
-            Increment Hours
-          </button>
-        </p>
-        <p>
-          <button onClick={() => (s = s.subtract(1, 'hours'))}>
-            Decrement Hours
-          </button>
-        </p> */}
         <p>
           <button onClick={() => (s = spacetime.now())}>Reset</button>
         </p>

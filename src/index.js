@@ -12,4 +12,4 @@ function tick() {
   );
 }
 
-setInterval(tick, 500);
+setInterval(tick, 250);
